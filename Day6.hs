@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
 
-module Day6 where
+module Main where
 
 import Data.List
 import Data.Either
@@ -9,7 +9,7 @@ import Text.Parsec.String
 import Control.Monad
 import System.Environment
 import GHC.Generics (Generic)
-import Control.Parallel.Strategies
+import Control.Parallel.Strategies hiding (NFData(..))
 import Control.DeepSeq
 
 
@@ -38,7 +38,6 @@ parseAction "toggle"   = Toggle
 parseAction "turn off" = TurnOff
 parseAction "turn on"  = TurnOn
 
-
 makeBoard :: Int -> Int -> [Light]
 makeBoard w h = [ Light (Coords x y) Off | x <- [0..w-1], y <- [0..h-1] ] 
 
@@ -60,6 +59,7 @@ withApplied (Light c Off)   _     = Light c On
 
 -- PARSER
 
+
 instructionParser :: Parsec String () Instruction
 instructionParser = do
     action <- (try $ string "toggle") <|> (try $ string "turn off") <|> (try $ string "turn on")
@@ -72,7 +72,6 @@ instructionParser = do
     char ','
     y2 <- liftM read $ many alphaNum
     return (Coords x1 y1, Coords x2 y2, parseAction action)
-
 
 updateBoard :: LightBoard -> Instruction -> LightBoard
 updateBoard lboard i = map update lboard `using` parList rseq
@@ -94,7 +93,6 @@ updateBoard lboard i = map update lboard `using` parList rseq
 setupLights :: LightBoard -> [Instruction] -> LightBoard
 setupLights lboard []     = lboard
 setupLights lbrd instrs   = foldl' updateBoard lbrd instrs
-
 
 -- IO
 
