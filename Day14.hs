@@ -56,6 +56,8 @@ roadScheme Rest n mt rt
     | otherwise = [Nothing]   
 
 
+-- HAS TO BE REIMPLEMENTED
+
 distance :: Int -> Reindeer -> Distance
 distance t (_, s, mt, rt) = (*s) . sum . catMaybes $ roadScheme Move t mt rt
 
