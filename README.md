@@ -1,1 +1,1 @@
-my solutions to adventofcode.com written in haskell
+my solutions of adventofcode.com written in haskell
