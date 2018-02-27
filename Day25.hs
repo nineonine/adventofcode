@@ -1,4 +1,4 @@
-module Day25 where
+module Main where
 
 stream :: Int -> [Int]
 stream 0 = []

@@ -14,7 +14,7 @@ removeFinishedElves a@(x:xs)
     | otherwise            = a
 
 housesWithPresentsP1 :: [(Int, Int)] -- stream of (House Number, Number of presents)
-housesWithPresentsP1 = zip [1..] (map ((*10) . sum . allelves) [1..]) 
+housesWithPresentsP1 = zip [1..] (map ((*10) . sum . allelves) [1..])
 
 housesWithPresentsP2 :: [(Int, Int)] -- stream of (House Number, Number of presents)
 housesWithPresentsP2 = zip [1..] (map ((*11) . sum . removeFinishedElves . allelves) [1..])
